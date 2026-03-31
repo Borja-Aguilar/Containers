@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-api
+  template:
+    metadata:
+      labels:
+        app: backend-api
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: servicio-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: backend-api  # <-- Esto debe coincidir con las etiquetas del Deployment
+  ports:
+    - protocol: TCP
+      port: 80        # Puerto del Service
+      targetPort: 80  # Puerto del Contenedor
