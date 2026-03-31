@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: desarrollo
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-dev
+  namespace: desarrollo  # <-- Crucial: aquí indicas dónde vive el Pod
+  labels:
+    env: dev
+spec:
+  containers:
+  - name: nginx-dev
+    image: nginx:alpine
